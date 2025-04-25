@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GreenPulse Recycling</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Base Styles */
+      body {
+        margin: 0;
+        background-color: #f7fafc;
+        font-family: "Inter", sans-serif;
+      }
+      a {
+        text-decoration: none;
+      }
+
+      /* Header */
+      header {
+        background-color: transparent;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        padding: 1rem 0;
+        position: fixed;
+        font-size: 20px;
+
+        top: 0;
+        width: 100%;
+        z-index: 40;
+        transition: background-color 0.3s; /* Add smooth transition */
+      }
+
+      header.inactive {
+        background-color: transparent; /* Transparent background when inactive */
+      }
+
+      header.active {
+        background-color: #ffffff; /* White background when active */
+      }
+
+      header .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: color 0.3s; /* Add transition for color change */
+      }
+
+      /* Default nav link color when inactive */
+      header .nav-link {
+        color: #ffffff; /* White color for unselected links when inactive */
+        transition: color 0.3s; /* Smooth transition for text color */
+      }
+
+      /* In active state, change the color of non-selected nav links to gray */
+      header.active .nav-link {
+        color: #808080; /* Gray color for non-selected links when header is active */
+      }
+
+      /* Hover effect for nav links */
+      header .nav-link:hover {
+        color: #6ee7b7; /* Color change on hover */
+      }
+
+      /* Active (selected) nav link color */
+      header.active .nav-link.active {
+        color: #234a39; /* Color for selected/active link when active */
+      }
+
+      /* Active link color when header is inactive */
+      header.inactive .nav-link.active {
+        color: #ffffff; /* White color for selected link when inactive */
+      }
+      /* Hover effect for active link */
+      header.active .nav-link:hover {
+        color: #059669; /* Darker hover color when active */
+      }
+
+      /* Logo Styling */
+      .logo {
+        font-size: 26px;
+        color: #ffffff;
+        transition: color 0.3s; /* Add transition for smooth color change */
+      /*  margin-left: -120px;  Move the logo to the left */
+      }
+
+      /* Active state: Logo is dark */
+      header.active .logo {
+        color: #234a39;
+      }
+
+      /* Desktop Navigation */
+      .nav {
+        display: none;
+      }
+      #home h1 {
+        font-size: 3.75rem; /* adjust to taste */
+        margin-bottom: 16px; /* space under the title */
+      }
+
+      #home p {
+        font-size: 1.25rem; /* adjust to taste */
+        line-height: 28px; /* controls paragraph spacing */
+        color: #ffffff;
+      }
+      @media (min-width: 768px) {
+        .nav {
+          display: block;
+        }
+      }
+      .nav-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 1.5rem;
+      }
+      .nav-link {
+        color: #fff;
+        transition: color 0.3s;
+      }
+      .nav-link:hover {
+        color: #6ee7b7;
+      }
+      .nav-link.active {
+        color: #234a39;
+      }
+
+      /* Hamburger Button */
+      #hamburger-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+      @media (min-width: 768px) {
+        #hamburger-btn {
+          display: none;
+        }
+      }
+
+      /* Mobile Menu Overlay */
+      #mobile-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(31, 41, 55, 0.9);
+        z-index: 50;
+      }
+      #mobile-menu.active {
+        display: block;
+      }
+      .mobile-menu-panel {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 20rem;
+        height: 100%;
+        background: #fff;
+        padding: 1.5rem;
+      }
+      .close-btn {
+        background: none;
+        border: none;
+        color: #374151;
+        font-size: 1.25rem;
+        cursor: pointer;
+      }
+      .mobile-nav-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .mobile-nav-link {
+        display: block;
+        font-size: 1.125rem;
+        color: #374151;
+        transition: color 0.3s;
+      }
+      .mobile-nav-link:hover,
+      .mobile-nav-link.active {
+        color: #6ee7b7;
+        font-weight: 600;
+      }
+
+      /* Sections */
+      main {
+        margin-top: 0rem;
+      }
+      section {
+        padding: 5rem 1rem;
+      }
+      .text-center {
+        text-align: center;
+      }
+      .btn-primary {
+        background: #234a39;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 9999px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .btn-primary:hover {
+        background: #059669;
+      }
+
+      /* Typography */
+      h1 {
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: #fff;
+      }
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        color: #059669;
+      }
+      h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+      p {
+        color: #ffffff;
+      }
+
+      /* Grids */
+      .grid-3 {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      @media (min-width: 768px) {
+        .grid-3 {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .grid-4 {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      @media (min-width: 768px) {
+        .grid-4 {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      /* Cards */
+      .card {
+        background: #9fc1a3;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        padding: 1.5rem;
+      }
+      .icon {
+        width: 3rem;
+        height: 3rem;
+        margin-bottom: 1rem;
+        color: #234a39;
+      }
+
+      /* Stats Section */
+      .stats-section {
+        background: #dcfce7;
+      }
+      .stats-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      @media (min-width: 768px) {
+        .stats-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .stat {
+        text-align: center;
+      }
+      .stat h3 {
+        font-size: 1.875rem;
+        font-weight: 700;
+        color: #234a39;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Contact Form */
+      .contact-form {
+        background: #fff;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        padding: 2rem;
+      }
+      .form-group {
+        margin-bottom: 1rem;
+      }
+      .form-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #374151;
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.25rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #374151;
+      }
+      .form-group textarea {
+        resize: vertical;
+        height: 8rem;
+      }
+
+      /* Footer */
+      footer {
+        background: #234a39;
+        color: #fff;
+        padding: 1.5rem 0;
+        text-align: center;
+      }
+
+      /* Grid 2 for Contact Section */
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      @media (min-width: 768px) {
+        .grid-2 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      /* Hero buttons wrapper */
+      .hero-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 16px;
+      }
+
+      @media (min-width: 768px) {
+        .hero-buttons {
+          flex-direction: row;
+        }
+      }
+
+      /* Primary button (you already have this) */
+      .btn-primary {
+        background-color: #234a39;
+        color: white;
+        font-weight: 500;
+        border-radius: 9999px;
+        padding: 12px 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+
+      .btn-primary:hover {
+        background-color: #15803d;
+      }
+
+      .btn-primary svg {
+        transition: transform 0.3s;
+      }
+
+      .btn-primary:hover svg {
+        transform: translateX(4px);
+      }
+
+      /* Secondary button */
+      .btn-secondary {
+        background: none;
+        border: 2px solid white;
+        color: white;
+        font-weight: 500;
+        border-radius: 9999px;
+        padding: 12px 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      .btn-secondary:hover {
+        background-color: white;
+        color: #16a34a;
+      }
+      .recycle-section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        justify-content: center;
+      }
+
+      .recycle-card {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+        padding: 30px;
+        width: 100%;
+        max-width: 500px;
+        box-sizing: border-box;
+      }
+
+      .recycle-card__icon {
+        font-size: 40px;
+        color: #15803d;
+        margin-bottom: 10px;
+      }
+
+      .recycle-card__title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 15px;
+      }
+
+      .recycle-card__description {
+        color: #475569;
+        font-size: 15px;
+        margin-bottom: 20px;
+      }
+
+      .recycle-card__features-title {
+        font-weight: bold;
+        color: #15803d;
+        margin-bottom: 10px;
+      }
+
+      .recycle-card__features-list {
+        list-style: none;
+        padding: 0;
+        color: #374151;
+        font-size: 15px;
+      }
+
+      .recycle-card__features-list li {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+      }
+
+      .recycle-card__features-list li::before {
+        content: "✔";
+        color: #15803d;
+        margin-right: 10px;
+      }
+
+      @media (max-width: 768px) {
+        .recycle-section {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+      
+    </style>
+      <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      (function () {
+        emailjs.init({
+          publicKey: "G-QWB7CH1iuaeyHEF", // Replace with your actual public key
+        });
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="nav-imagezz">
+      <header>
+        <div class="nav-container">
+          <a href="#" class="logo">🍀 GreenPulse</a>
+          <nav class="nav">
+            <ul class="nav-list">
+              <li><a href="#home" class="nav-link active">Home</a></li>
+              <li><a href="#Services" class="nav-link">Services</a></li>
+              <li><a href="#process" class="nav-link">Process</a></li>
+              <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+          </nav>
+          <button id="hamburger-btn" aria-label="Toggle Navigation">☰</button>
+        </div>
+        <div id="mobile-menu">
+          <div class="mobile-menu-panel">
+            <button
+              id="close-menu-btn"
+              class="close-btn"
+              aria-label="Close Menu"
+            >
+              ✕
+            </button>
+            <nav>
+              <ul class="mobile-nav-list">
+                <li><a href="#home" class="mobile-nav-link active">Home</a></li>
+                <li>
+                  <a href="#Services" class="mobile-nav-link">Services</a>
+                </li>
+                <li><a href="#process" class="mobile-nav-link">Process</a></li>
+                <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section
+          id="home"
+          class="text-left"
+          style="
+            background-image: linear-gradient(
+                rgba(0, 0, 0, 0.6),
+                rgba(0, 0, 0, 0.6)
+              ),
+              url('assets/images/apsa-open-letter.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            height: 90vh; /* or a fixed px height like 600px */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            color: white;
+            padding: 2rem;
+          "
+        >
+          <div class="container mx-auto">
+            <h1>Cash from Trash with <br />GreenPulse</h1>
+            <p>
+              Join GreenPulse in our mission to create a sustainable future
+              <br />through innovative recycling Services that reduce waste
+              <br />and preserve our planet.
+            </p>
+          </div>
+          <div class="hero-buttons">
+            <a href="#contact" class="btn-primary"> Learn More > </a>
+            <a href="#services" class="btn-secondary">Our Services</a>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <main>
+      <section id="Services" class="text-center">
+        <div class="container mx-auto">
+          <h2>Recycling Services for Everyone</h2>
+          <div class="grid-3">
+            <div class="card">
+              <h3>Eco-friendly Practices</h3>
+              <p>
+                We promote sustainable practices to minimize environmental
+                impact.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Innovative Technology</h3>
+              <p>
+                Utilizing the latest technology for efficient recycling
+                processes.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Community Focused</h3>
+              <p>Building a stronger, more sustainable community together.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="recycle-section">
+        <!-- Residential Card -->
+        <div class="recycle-card">
+          <div class="recycle-card__icon">🏠</div>
+          <div class="recycle-card__title">Residential Recycling</div>
+          <div class="recycle-card__description">
+            Convenient and eco-friendly recycling services tailored for
+            households with regular pickups and sorting guidance.
+          </div>
+          <div class="recycle-card__features-title">Key Features:</div>
+          <ul class="recycle-card__features-list">
+            <li>Weekly or bi-weekly pickup schedules</li>
+            <li>Sorting containers provided free of charge</li>
+            <li>Educational resources for proper recycling</li>
+            <li>Special handling for electronics and hazardous waste</li>
+          </ul>
+        </div>
+
+        <!-- Commercial Card -->
+        <div class="recycle-card">
+          <div class="recycle-card__icon">🏢</div>
+          <div class="recycle-card__title">Commercial Solutions</div>
+          <div class="recycle-card__description">
+            Comprehensive recycling programs for businesses of all sizes
+            designed to boost sustainability while reducing costs.
+          </div>
+          <div class="recycle-card__features-title">Key Features:</div>
+          <ul class="recycle-card__features-list">
+            <li>Customized waste reduction strategies</li>
+            <li>Scalable solutions for businesses of all sizes</li>
+            <li>Compliance assistance with local regulations</li>
+            <li>Regular reporting and waste audits</li>
+          </ul>
+        </div>
+      </div>
+      <!-- <section class="stats-section text-center">
+        <div class="container mx-auto">
+          <h2>Making a Difference Together</h2>
+          <div class="stats-grid">
+            <div class="stat">
+              <h3>3,247+</h3>
+              <p>Happy Customers</p>
+            </div>
+            <div class="stat">
+              <h3>2,020+</h3>
+              <p>Tons of Waste Recycled</p>
+            </div>
+            <div class="stat">
+              <h3>27+</h3>
+              <p>Awards Won</p>
+            </div>
+          </div>
+        </div>
+      </section> -->
+
+      <section id="process" class="text-center">
+        <div class="container mx-auto">
+          <h2>Simple 4-Step Recycling Process</h2>
+          <div class="grid-4 text-gray-700">
+            <div>
+              <div class="card flex flex-col items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="icon"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M21 7.5l-9-5.25L3 7.5m18 0v9a1.5 1.5 0 01-1.5 1.5H5.25A1.5 0 013.75 16.5v-9"
+                  />
+                </svg>
+                <h3>Step 1</h3>
+                <p>Collect Your Recyclables</p>
+              </div>
+            </div>
+            <div>
+              <div class="card flex flex-col items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="icon"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 6v6h4.5m-2.357 6.143L12 13.5l-2.143 2.143m4.5 0v-6"
+                  />
+                </svg>
+                <h3>Step 2</h3>
+                <p>Drop them off at our centers</p>
+              </div>
+            </div>
+            <div>
+              <div class="card flex flex-col items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="icon"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                  />
+                </svg>
+                <h3>Step 3</h3>
+                <p>We process your items</p>
+              </div>
+            </div>
+            <div>
+              <div class="card flex flex-col items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="icon"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M2.25 15a4.5 4.5 0 006.364 6.364l9-9.364-10.585-10.585A4.5 4.5 0 002.25 15z"
+                  />
+                </svg>
+                <h3>Step 4</h3>
+                <p>Get rewarded!</p>
+              </div>
+            </div>
+          </div>
+          <!-- <button class="mt-8 btn-primary">Start Recycling</button> -->
+        </div>
+      </section>
+
+      <section class="collect-carousel">
+  <h2 class="collect-carousel__title">We collect the following</h2>
+  <p class="collect-carousel__subtitle">
+    You should separate your waste according to our classification
+  </p>
+
+  <div class="carousel">
+    <button class="carousel__btn carousel__btn--prev" id="prevBtn">‹</button>
+    <div class="carousel__viewport" id="viewport">
+      <div class="carousel__track" id="track">
+        <!-- 8 items; only 3 visible at once -->
+        <div class="carousel__item"><div>🔋<span>Batteries</span></div></div>
+        <div class="carousel__item"><div>🎲<span>Kids’ Toys</span></div></div>
+        <div class="carousel__item"><div>📦<span>Carton Packs</span></div></div>
+        <div class="carousel__item"><div>♻️<span>Plastic</span></div></div>
+        <div class="carousel__item"><div>📄<span>Paper</span></div></div>
+        <div class="carousel__item"><div>🍾<span>Glass</span></div></div>
+        <div class="carousel__item"><div>🔧<span>Metal</span></div></div>
+        <div class="carousel__item"><div>💻<span>E-Waste</span></div></div>
+      </div>
+    </div>
+    <button class="carousel__btn carousel__btn--next" id="nextBtn">›</button>
+  </div>
+</section>
+
+<style>
+  .collect-carousel {
+    text-align: center;
+    font-family: sans-serif;
+    background: #adc4ba;
+    padding: 3rem 1rem;
+  }
+  .collect-carousel__title {
+    display: inline-block;
+    background: #234a39;
+    color: #fff;
+    padding: .75rem 2rem;
+    border-radius: 9999px;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .collect-carousel__subtitle {
+    color: #475569;
+    margin-bottom: 2rem;
+  }
+
+  .carousel {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .carousel__viewport {
+    overflow: hidden;
+  }
+  .carousel__track {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+  .carousel__item {
+    flex: 0 0 33.333%;
+    box-sizing: border-box;
+    padding: 0 8px;
+  }
+  .carousel__item > div {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    padding: 2rem;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: box-shadow .3s, transform .3s;
+  }
+  .carousel__item:hover > div {
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    transform: translateY(-4px);
+  }
+  .carousel__item span {
+    display: block;
+    margin-top: .5rem;
+    font-weight: 600;
+    color: #1f2937;
+  }
+
+  .carousel__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: none;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+  .carousel__btn--prev { left: -1rem; }
+  .carousel__btn--next { right: -1rem; }
+</style>
+
+<script>
+  (function(){
+    const track = document.getElementById('track');
+    const prev = document.getElementById('prevBtn');
+    const next = document.getElementById('nextBtn');
+    const itemCount = track.children.length;
+    let index = 0;
+    const maxIndex = itemCount - 3; // we show 3 items
+
+    function update() {
+      const shift = -(100/3) * index;
+      track.style.transform = `translateX(${shift}%)`;
+    }
+
+    prev.addEventListener('click', () => {
+      index = index > 0 ? index - 1 : maxIndex;
+      update();
+    });
+    next.addEventListener('click', () => {
+      index = index < maxIndex ? index + 1 : 0;
+      update();
+    });
+
+    // auto-advance every 2s
+    setInterval(() => {
+      next.click();
+    }, 2000);
+  })();
+</script>
+
+      <section id="contact">
+        <div class="container mx-auto">
+          <h2 class="text-center">Get In Touch</h2>
+          <div class="grid-2">
+
+            <form class="contact-form"
+            id="contactForm1"
+            onsubmit="sendMail1(event)">
+              <div class="form-group">
+                <label for="contact1_name">Your Name</label>
+                <input
+                  type="text"
+                  id="contact1_name"
+                  name="name"
+                  placeholder="Your Name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="contact1_emai">Your Email</label>
+                <input
+                  type="email"
+                  id="contact1_email"
+                  name="email"
+                  placeholder="Your Email"
+                  required
+                />
+              </div>
+               <div class="form-group">
+              <label for="contact1_subject" >Subject</label>
+              <input
+                type="text"
+                id="contact1_subject"
+                placeholder="Subject"
+                required
+              />
+            </div>
+              <div class="form-group">
+                <label for="contact1_message">Your Message</label>
+                <textarea
+                id="contact1_message"
+                  name="message"
+                  placeholder="Your Message"
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="btn-primary">Send Message</button>
+            </form>
+            <div>
+              <div class="card">
+                <h3>Our Address</h3>
+                <p>Masr el gedida</p>
+                <h3>Contact</h3>
+                <!-- <p>Email: info@greenpulse.com</p> -->
+                <p>Phone: +201009127701</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+<!-- Contact Section Start -->
+
+
+      
+
+    <!-- EmailJS Send Function -->
+    <script>
+      function sendMail1(event) {
+        event.preventDefault();
+
+        const params = {
+          from_name: document.getElementById("contact1_name").value.trim(),
+          reply_to: document.getElementById("contact1_email").value.trim(),
+          subject: document.getElementById("contact1_subject").value.trim(),
+          message: document.getElementById("contact1_message").value.trim(),
+        };
+
+        if (!params.from_name || !params.reply_to || !params.subject || !params.message) {
+          alert("Please fill in all the fields.");
+          return;
+        }
+
+        emailjs
+          .send("service_3b7yern", "template_wozjif1", params)
+          .then(function (response) {
+            alert("Message sent successfully!");
+            document.getElementById("contactForm1").reset();
+          })
+          .catch(function (error) {
+            console.error("Email send error:", error);
+            alert("Something went wrong. Please try again later.");
+          });
+      }
+    </script>
+    <footer>
+      <div class="container mx-auto">
+        <p>© 2025 GreenPulse. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      // Cache elements
+      const header = document.querySelector("header");
+      const navLinks = document.querySelectorAll(".nav-link");
+      const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+      const sections = document.querySelectorAll("section");
+      const hamburgerBtn = document.getElementById("hamburger-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const closeMenuBtn = document.getElementById("close-menu-btn");
+
+      // Function to update header background and active links
+      function updateHeaderAndLinks() {
+        // Toggle header active/inactive based on scroll position
+        if (window.scrollY > 50) {
+          header.classList.add("active");
+          header.classList.remove("inactive");
+        } else {
+          header.classList.add("inactive");
+          header.classList.remove("active");
+        }
+
+        // Determine which section is currently in view
+        let currentSectionId = "";
+        sections.forEach((section) => {
+          const top = section.offsetTop - 100;
+          const bottom = top + section.offsetHeight;
+          if (window.scrollY >= top && window.scrollY < bottom) {
+            currentSectionId = section.id;
+          }
+        });
+
+        // Update desktop nav links
+        navLinks.forEach((link) => {
+          const isActive = link.getAttribute("href") === `#${currentSectionId}`;
+          link.classList.toggle("active", isActive);
+        });
+
+        // Update mobile nav links
+        mobileNavLinks.forEach((link) => {
+          const isActive = link.getAttribute("href") === `#${currentSectionId}`;
+          link.classList.toggle("active", isActive);
+        });
+      }
+
+      // Smooth-scroll to sections on link click, and close mobile menu
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+          }
+          mobileMenu.classList.remove("active");
+        });
+      });
+
+      // Mobile menu toggle
+      hamburgerBtn.addEventListener("click", () => {
+        mobileMenu.classList.add("active");
+      });
+      closeMenuBtn.addEventListener("click", () => {
+        mobileMenu.classList.remove("active");
+      });
+
+      // Run on scroll
+      window.addEventListener("scroll", updateHeaderAndLinks);
+      // Run once on load to set initial state
+      window.addEventListener("load", updateHeaderAndLinks);
+    </script>
+  </body>
+</html>
